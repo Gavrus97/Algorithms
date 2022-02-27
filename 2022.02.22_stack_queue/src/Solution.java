@@ -75,8 +75,6 @@ public class Solution {
                     i = stack.size() - 1;
                     indexRes--;
                 }
-
-
             }
         }
         return res;
