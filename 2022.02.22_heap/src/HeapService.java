@@ -49,8 +49,10 @@ public class HeapService {
     }
 
 
-    public void heapSort(int[] array){
-        makeHeap(array);
+    public void heapSort(int[] numbers){
+        makeHeap(numbers);
+
+        int[] array = Arrays.copyOf(numbers,numbers.length);
 
         List<Integer> res = new ArrayList<>();
 
@@ -68,12 +70,9 @@ public class HeapService {
             }
         }
 
-        int[] arr = new int[res.size()];
-
         for (int i = 0; i < res.size(); i++) {
-            arr[i] = res.get(i);
+            numbers[i] = res.get(i);
         }
 
-        array = arr;
     }
 }
