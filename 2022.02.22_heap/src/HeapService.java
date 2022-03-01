@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class HeapService {
 
     /**
@@ -11,7 +7,7 @@ public class HeapService {
     //если у узла в куче индекс в массиве раняется i, то индекс его детей в массиве равняется 2*i+1 и 2*i+2
     public void makeHeap(int[] array) {
         for (int i = (array.length - 1) / 2;i >= 0 ; i--) {
-            siftDown(i, array);
+            siftDown(i, array, array.length);
         }
     }
 
@@ -21,58 +17,35 @@ public class HeapService {
      * @param i an element in array
      * @param array array
      */
-    private void siftDown(int i, int[] array) {
+    private void siftDown(int i, int[] array, int size) {
 
-        int index = i;
-        int leftChildIndex = 2 * index + 1;
+        int leftIndex = 2 * i + 1;
+        int rightIndex = leftIndex + 1;
 
-        while(leftChildIndex < array.length) {
+        int maxIndex = i;
+        if(leftIndex < size && array[leftIndex] > array[maxIndex])
+            maxIndex = leftIndex;
 
-            int rightChildIndex = leftChildIndex + 1;
-            int max = leftChildIndex;
+        if(rightIndex < size && array[rightIndex] > array[maxIndex])
+            maxIndex = rightIndex;
 
-            if (rightChildIndex < array.length) {
-                if (array[rightChildIndex] > array[leftChildIndex])
-                    max = rightChildIndex;
-            }
-
-            if (array[index] < array[max]) {
-                int temp = array[index];
-                array[index] = array[max];
-                array[max] = temp;
-                index = max;
-                leftChildIndex = 2 * index + 1;
-            }
-            else
-                break;
+        if(maxIndex != i){
+            int temp = array[i];
+            array[i] = array[maxIndex];
+            array[maxIndex] = temp;
+            siftDown(maxIndex, array, size);
         }
     }
 
 
-    public void heapSort(int[] numbers){
-        makeHeap(numbers);
+    public void heapSort(int[] array){
+        makeHeap(array);
 
-        int[] array = Arrays.copyOf(numbers,numbers.length);
-
-        List<Integer> res = new ArrayList<>();
-
-        while(array.length != 0){
-
-            if(array.length == 1) {
-                res.add(array[0]);
-                break;
-            }
-            else {
-                res.add(array[0]);
-                array[0] = array[array.length - 1];
-                array = Arrays.copyOfRange(array, 0, array.length - 1);
-                siftDown(0,array);
-            }
+        for (int i = array.length - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+            siftDown(0,array, i);
         }
-
-        for (int i = 0; i < res.size(); i++) {
-            numbers[i] = res.get(i);
-        }
-
     }
 }
