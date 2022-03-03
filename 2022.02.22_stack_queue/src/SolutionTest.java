@@ -13,6 +13,18 @@ class SolutionTest {
     }
 
     @Test
+    public void testFirstClosed(){
+        char[] brackets = {'}','{', '}', '(','[',']',')'};
+        assertFalse(sol.areBracketsCorrect(brackets));
+    }
+
+    @Test
+    public void test7(){
+        char[] brackets = {']', '['};
+        assertFalse(sol.areBracketsCorrect(brackets));
+    }
+
+    @Test
     public void test2(){
         char[] brackets = {'{', '}', '(','[',']','{', '(', ')', '}', ')'};
         assertTrue(sol.areBracketsCorrect(brackets));
@@ -45,7 +57,7 @@ class SolutionTest {
     @Test
     public void test_countOrdersNumber1(){
         long[] array = {1000000, 1200000, 1250000, 1300000, 1600000, 1700000, 1800000, 1850000, 1890000};
-        assertArrayEquals(new int[]{0, 1, 2, 2, 0, 1, 2, 3, 4}, sol.countOrdersNumber(array, 5));
+        assertArrayEquals(new int[]{0, 1, 2, 3, 1, 1, 2, 3, 4}, sol.countOrdersNumber(array, 5));
     }
 
 }

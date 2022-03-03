@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.Stack;
 
 public class Solution {
@@ -29,6 +31,8 @@ public class Solution {
         for (char bracket : brackets) {
             if (bracket == '{' || bracket == '(' || bracket == '[')
                 stack.push(bracket);
+            else if (stack.empty())
+                return false;
             else if (bracket == '}' && stack.peek() == '{' || bracket == ')' && stack.peek() == '('
                     || bracket == ']' && stack.peek() == '[')
                 stack.pop();
@@ -45,7 +49,7 @@ public class Solution {
      * @param minutes    min
      * @return для соответствующиего заказа - количество заказов, сделанных в предыдущие minutes минут
      */
-    public int[] countOrdersNumber(long[] orderTimes, int minutes) {
+    public int[] countOrdersNumberMy(long[] orderTimes, int minutes) {
         int[] res = new int[orderTimes.length];
         res[0] = 0;
         long milis = (long) minutes * 60 * 1000;
@@ -76,6 +80,23 @@ public class Solution {
                     indexRes--;
                 }
             }
+        }
+        return res;
+    }
+
+    public int[] countOrdersNumber(long[] orderTimes, int minutes) {
+        int[] res = new int[orderTimes.length];
+        Deque<Long> queue = new ArrayDeque<>();
+
+        long millis = minutes * 60L * 1000;
+
+        int i = 0;
+        for(long orderTime : orderTimes){
+            queue.addLast(orderTime);
+            while (orderTime - queue.getFirst() > millis)
+                queue.removeFirst();
+
+            res[i++] = queue.size() - 1;
         }
         return res;
     }
