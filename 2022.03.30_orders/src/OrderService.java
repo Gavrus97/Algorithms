@@ -1,7 +1,4 @@
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderService {
 
@@ -27,13 +24,41 @@ public class OrderService {
                     } else {
                         j--;
                     }
-                }
-                else {
+                } else {
                     break;
                 }
             }
             res.put(orders.get(i).getUuid(), count);
             count = 0;
+        }
+        return res;
+    }
+
+    public Map<String, Integer> countPreviousOrdersSolution(List<Order> orders, long delta) {
+        List<Order> ordersCopy = new ArrayList<>(orders);
+        ordersCopy.sort(Comparator.comparingLong(Order::getTimestamp));
+
+
+        // mapping from restaurant ID to the deque of the timestamps of the orders, accommodated into the last delta
+        //milliseconds
+        Map<String, Deque<Long>> orderTimesByRestaurantId = new HashMap<>();
+
+        //mapping orderId to the number of previous orders within delta milliseconds
+        Map<String, Integer> res = new HashMap<>();
+
+        for (Order order : ordersCopy) {
+            Deque<Long> previousTimestamps = orderTimesByRestaurantId.get(order.getRestaurantId());
+            if (previousTimestamps == null) {
+                previousTimestamps = new ArrayDeque<>();
+                orderTimesByRestaurantId.put(order.getRestaurantId(), previousTimestamps);
+            }
+
+            long currentTimestamp = order.getTimestamp();
+            previousTimestamps.addLast(order.getTimestamp());
+            while (currentTimestamp - previousTimestamps.getFirst() > delta)
+                previousTimestamps.removeFirst();
+
+            res.put(order.getUuid(), previousTimestamps.size() - 1);
         }
         return res;
     }
