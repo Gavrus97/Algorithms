@@ -13,8 +13,11 @@ public class Main {
         for (String m : map.keySet() ){
             String newKey = convertKey(m);
             Object value = map.get(m);
+            if(value instanceof Map){
+               Map<String, Object> newValue = changeJson((Map<String, Object>) value);
+               res.put(newKey, newValue);
+            }
             res.put(newKey,value);
-
         }
         return res;
     }
