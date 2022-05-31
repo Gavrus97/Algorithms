@@ -38,6 +38,7 @@ public class CustomCollection implements ICustomCollection {
         list.set(index,lastElt);
         list.remove(list.size() - 1);
         map.put(lastElt, index);
+        map.remove(elt);
 
         return true;
     }
