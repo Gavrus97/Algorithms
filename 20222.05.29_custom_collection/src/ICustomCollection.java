@@ -6,6 +6,4 @@ public interface ICustomCollection {
 
     Long getRandom();
 
-    void printCollection();
-
 }

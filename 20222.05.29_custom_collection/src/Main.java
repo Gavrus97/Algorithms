@@ -23,26 +23,26 @@ public class Main {
         System.out.println(mc.add(27L));
         System.out.println(mc.add(28L));
         System.out.println(mc.add(29L));
-        mc.printCollection();
+        System.out.println(mc);
 
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println();
 
         System.out.println(mc.remove(10L));
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println(mc.remove(20L));
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println(mc.remove(30L));
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println(mc.remove(14L));
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println(mc.remove(13L));
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println();
 
         System.out.println(mc.getRandom());
@@ -59,7 +59,7 @@ public class Main {
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
         System.out.println(mc.getRandom());
-        mc.printCollection();
+        System.out.println(mc);
         System.out.println();
 
     }

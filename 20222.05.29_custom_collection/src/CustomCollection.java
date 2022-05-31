@@ -27,29 +27,21 @@ public class CustomCollection implements ICustomCollection {
         return false;
     }
 
-//    @Override
-//    public boolean remove(Long elt) {
-//        if(!map.containsKey(elt))
-//            return false;
-//
-//        int index = map.get(elt);
-//        list.remove(index);
-//        map.remove(elt);
-//
-//        for (int i = index; i < list.size(); i++) {
-//            map.put(list.get(i), i);
-//        }
-//        return true;
-//    }
-
     @Override
     public boolean remove(Long elt) {
         if (!map.containsKey(elt))
             return false;
 
-        map.remove(elt);
+        int index = map.get(elt);
+        long lastElt = list.get(list.size() - 1);
+
+        list.set(index,lastElt);
+        list.remove(list.size() - 1);
+        map.put(lastElt, index);
+
         return true;
     }
+
 
     @Override
     public Long getRandom() {
@@ -58,23 +50,11 @@ public class CustomCollection implements ICustomCollection {
         }
 
         int index = rnd.nextInt(list.size());
-        Long res = list.get(index);
-
-        if (map.containsKey(res))
-            return res;
-
-        else return getRandom();
+        return list.get(index);
     }
 
     @Override
-    public void printCollection() {
-        System.out.print("[ ");
-        for (int i = 0; i < list.size(); i++) {
-            long number = list.get(i);
-            if (map.containsKey(number))
-                System.out.print(number + " ");
-        }
-        System.out.print("]");
-        System.out.println();
+    public String toString() {
+        return list.toString();
     }
 }
