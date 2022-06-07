@@ -15,9 +15,7 @@ class BinaryRepresentationListSortTest {
         br.sortByBinaryOnesAndValue(start);
         List<Integer> res = List.of(1, 2, 16, 6, 20, 7);
 
-        for(int i = 0; i < start.size(); i++){
-            assertEquals(res.get(i), start.get(i));
-        }
+        assertEquals(res, start);
     }
 
     @Test
@@ -26,9 +24,7 @@ class BinaryRepresentationListSortTest {
         br.sortByBinaryOnesAndValue(start);
         List<Integer> res = List.of(2, 4, 8, 128, 3, 5);
 
-        for(int i = 0; i < start.size(); i++){
-            assertEquals(res.get(i), start.get(i));
-        }
+        assertEquals(res, start);
     }
 
 }
